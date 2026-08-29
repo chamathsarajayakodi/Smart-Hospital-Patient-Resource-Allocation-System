@@ -4,7 +4,7 @@
 int main()
 {
     int id,choice,loginAgain;
-    char customerName[50];
+    char name[50];
     char date[20];
     char time[20];
 
@@ -13,7 +13,7 @@ int main()
     {
        printf("User login\n");
        printf("User name: ");
-       scanf(" %[^\n]", customerName);
+       scanf(" %[^\n]", name);
        printf("Employee ID: ");
        scanf("%d", &id);
        printf("Date (DD/MM/YYYY): ");
