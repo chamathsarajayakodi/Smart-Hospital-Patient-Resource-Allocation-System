@@ -1,0 +1,20 @@
+# Code::Blocks generated files
+bin/
+obj/
+
+# Compiled files
+*.o
+*.exe
+
+# Temporary files
+*.tmp
+*.bak
+*~
+
+# IDE/editor files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
