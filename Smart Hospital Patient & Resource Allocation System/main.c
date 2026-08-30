@@ -4,10 +4,12 @@
 int main()
 {
     int id,choice,loginAgain;
-    char customerName[50];
+    char userName[50];
     char date[20];
     char time[20];
     int emergencyLevel,specialtyId,wardId;
+    char patientName[100];
+    int age;
 
     //Emergency level
     char emergencyChoice [3][10]=
@@ -40,7 +42,7 @@ int main()
     {
        printf("User login\n");
        printf("User name: ");
-       scanf(" %[^\n]", customerName);
+       scanf(" %[^\n]", userName);
        printf("Employee ID: ");
        scanf("%d", &id);
        printf("Date (DD/MM/YYYY): ");
@@ -53,7 +55,7 @@ int main()
        {
            printf("\nMain menu\n");
            printf("1.New patient registration\n");
-           printf("2.Doctor chanelling\n");
+           printf("2.Doctor channeling\n");
            printf("3.Hospital wards\n");
            printf("4.Triage priority queue\n");
            printf("5.Billing\n");
@@ -68,13 +70,17 @@ int main()
                 printf("1.New patient registration\n");
 
                 //Patient Details
-                char patientName[100];
-                int age;
 
                 printf("Patient Name: ");
                 scanf(" %[^\n]", patientName);
                 printf("Patient Age: ");
                 scanf("%d", &age);
+
+                if(age <= 0 || age > 120)
+                {
+                    printf("Invalid age!\n");
+                    break;
+                }
 
                 //Emergency level selection
                 printf("Emergency Choice\n");
@@ -137,6 +143,12 @@ int main()
 
                     printf("Days Admitted: ");
                     scanf("%d", &daysAdmitted);
+
+                    if(daysAdmitted <= 0)
+                    {
+                    printf("Invalid number of days!\n");
+                    break;
+                    }
                 }
                 else if(admissionChoice==0)
                 {
@@ -144,7 +156,10 @@ int main()
                     printf("Days Admitted: %d\n",daysAdmitted);
                 }
                 else
+                {
                     printf("Invalid choice!\n");
+                    break;
+                }
 
                 break;
             }
