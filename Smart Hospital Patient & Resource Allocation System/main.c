@@ -7,6 +7,33 @@ int main()
     char customerName[50];
     char date[20];
     char time[20];
+    int emergencyLevel,specialtyId,wardId;
+
+    //Emergency level
+    char emergencyChoice [3][10]=
+    {
+        "Normal",
+        "Urgent",
+        "Critical"
+    };
+
+    //Specialty
+    char specialty [4][30]=
+    {
+        "General Practice (OPD)",
+        "Paediatrics",
+        "Cardiology",
+        "Neurology"
+    };
+
+    //Ward Admission
+    char ward [4][30]=
+    {
+        "General Ward",
+        "Paediatric Ward",
+        "Surgical Ward",
+        "ICU (Intensive Care Unit)"
+    };
 
     //User login
     do
@@ -39,6 +66,86 @@ int main()
            case 1:
             {
                 printf("1.New patient registration\n");
+
+                //Patient Details
+                char patientName[100];
+                int age;
+
+                printf("Patient Name: ");
+                scanf(" %[^\n]", patientName);
+                printf("Patient Age: ");
+                scanf("%d", &age);
+
+                //Emergency level selection
+                printf("Emergency Choice\n");
+
+                for (int i = 0; i < 3; i++)
+                {
+                    printf("%d. %s\n", i + 1, emergencyChoice[i]);
+                }
+                printf("Emergency level: ");
+                scanf("%d", &emergencyLevel);
+
+                if(emergencyLevel < 1 || emergencyLevel > 3)
+                {
+                    printf("Invalid choice!\n");
+                    break;
+                }
+
+
+                //Specialty Selection
+                printf("Specialty Selection\n");
+
+                for (int i = 0; i < 4; i++)
+                {
+                    printf("%d. %s\n", i + 1, specialty[i]);
+                }
+                printf("Specialty ID: ");
+                scanf("%d", &specialtyId);
+
+                if(specialtyId < 1 || specialtyId > 4)
+                {
+                    printf("Invalid choice!\n");
+                    break;
+                }
+
+                //Ward Admission Details
+                int admissionChoice, daysAdmitted;
+
+                printf("Is Admitted to Ward?\n");
+                printf("1=Yes\n");
+                printf("0=No\n");
+                printf("Ward admission choice: ");
+                scanf("%d",&admissionChoice);
+
+                if(admissionChoice==1)
+                {
+                    printf("Ward selection\n");
+
+                    for (int i = 0; i < 4; i++)
+                    {
+                        printf("%d. %s\n", i + 1, ward[i]);
+                    }
+                    printf("Ward ID: ");
+                    scanf("%d", &wardId);
+
+                    if(wardId < 1 || wardId > 4)
+                    {
+                    printf("Invalid choice!\n");
+                    break;
+                    }
+
+                    printf("Days Admitted: ");
+                    scanf("%d", &daysAdmitted);
+                }
+                else if(admissionChoice==0)
+                {
+                    daysAdmitted = 0;
+                    printf("Days Admitted: %d\n",daysAdmitted);
+                }
+                else
+                    printf("Invalid choice!\n");
+
                 break;
             }
            case 2:
