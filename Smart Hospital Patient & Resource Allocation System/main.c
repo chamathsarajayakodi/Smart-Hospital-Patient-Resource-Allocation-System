@@ -131,53 +131,134 @@ int main()
             {
                 printf("2.Doctor channeling\n");
 
+                int case2selectedSpecialty;
+
                 for (int i = 0; i < 4; i++)
                 {
                     printf("%d. %s\n", i + 1, specialty[i]);
                 }
                 printf("Specialty ID: ");
-                scanf("%d", &specialtyId);
-                {
-                    int case2Choice;
-                    do
-                    {
-                        printf("1.Current queue\n");
-                        printf("2.Consultation time\n");
-                        printf("3.Estimated waiting time\n");
-                        printf("4.Daily capacity\n");
-                        printf("5.Back\n");
-                        printf("Enter your choice : ");
-                        scanf("%d", &case2Choice);
+                scanf("%d", &case2selectedSpecialty);
 
-                        switch(case2Choice)
-                        {
+                if(case2selectedSpecialty < 1 || case2selectedSpecialty > 4)
+                {
+                    printf("Invalid specialty choice!\n");
+                    break;
+                }
+                int case2Choice;
+                do
+                {
+                    printf("1.Current queue\n");
+                    printf("2.Consultation time\n");
+                    printf("3.Estimated waiting time\n");
+                    printf("4.Daily capacity\n");
+                    printf("5.Back\n");
+                    printf("Enter your choice : ");
+                    scanf("%d", &case2Choice);
+
+                    switch(case2Choice)
+                    {
                         case 1:
                             {
-                                printf("1.Current queue\n");
+                                int queueCount1 = 0;
+
+                                printf("\nCurrent queue:\n");
+
+                                // Critical patients
+                                for(int i = 0; i < patientCount; i++)
+                                {
+                                    if(specialtyId[i] == case2selectedSpecialty &&
+                                        emergencyLevel[i] == 3)
+                                    {
+                                        queueCount1++;
+
+                                        printf("%d. %s - Critical\n",
+                                            queueCount1, patientName[i]);
+                                    }
+                                }
+
+                                // Urgent patients
+                                for(int i = 0; i < patientCount; i++)
+                                {
+                                    if(specialtyId[i] == case2selectedSpecialty &&
+                                       emergencyLevel[i] == 2)
+                                    {
+                                        queueCount1++;
+
+                                        printf("%d. %s - Urgent\n",
+                                               queueCount1, patientName[i]);
+                                    }
+                                }
+
+                                // Normal patients
+                                for(int i = 0; i < patientCount; i++)
+                                {
+                                    if(specialtyId[i] == case2selectedSpecialty &&
+                                       emergencyLevel[i] == 1)
+                                    {
+                                        queueCount1++;
+
+                                        printf("%d. %s - Normal\n",
+                                               queueCount1, patientName[i]);
+                                    }
+                                }
+
+                                currentQueue[case2selectedSpecialty - 1] = queueCount1;
+
+                                printf("Total patients in queue: %d\n",
+                                       currentQueue[case2selectedSpecialty - 1]);
+                                break;
                             }
                         case 2:
                             {
                                 printf("2.Consultation time\n");
+
+                                printf("Consultation time: %d minutes\n",
+                                    consultationTime[case2selectedSpecialty - 1]);
+                                break;
                             }
                         case 3:
                             {
                                 printf("3.Estimated waiting time\n");
+
+                                int queueCount2 = 0;
+
+                                for(int i = 0; i < patientCount; i++)
+                                {
+                                    if(specialtyId[i] == case2selectedSpecialty)
+                                    {
+                                        queueCount2++;
+                                    }
+                                }
+
+                                estimatedWaitingTime =
+                                    queueCount2 * consultationTime[case2selectedSpecialty - 1];
+
+                                printf("Estimated waiting time: %d minutes\n",
+                                       estimatedWaitingTime);
+
+                                break;
                             }
                         case 4:
                             {
                                 printf("4.Daily capacity\n");
+
+                                printf("Daily patient capacity: %d patients\n",
+                                        dailyCapacity[case2selectedSpecialty - 1]);
+
+                                break;
                             }
                         case 5:
                             {
                                 printf("5.Back\n");
+                                break;
                             }
                         default:
                             printf("\nInvalid choice! Please try again.\n");
 
-                        }while(choice != 5);
+                        }
+                    }while(case2Choice != 5);
 
-                    }
-                }
 
                 break;
             }
