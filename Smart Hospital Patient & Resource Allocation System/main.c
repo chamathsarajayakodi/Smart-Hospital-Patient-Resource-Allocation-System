@@ -56,10 +56,11 @@ int main()
            printf("\nMain menu\n");
            printf("1.New patient registration\n");
            printf("2.Doctor channeling\n");
-           printf("3.Hospital wards\n");
+           printf("3.Hospital wards and Bed allocation\n");
            printf("4.Triage priority queue\n");
            printf("5.Billing\n");
-           printf("6.Exit\n");
+           printf("6.Reports and Data management\n");
+           printf("7.Exit\n");
            printf("Enter your choice : ");
            scanf("%d", &choice);
 
@@ -77,7 +78,7 @@ int main()
             }
            case 3:
             {
-                printf("3.Hospital wards\n");
+                printf("3.Hospital wards and Bed allocation\n");
                 break;
             }
            case 4:
@@ -92,13 +93,17 @@ int main()
             }
            case 6:
             {
-                printf("6.Exit\n");
+                printf("6.Reports and Data management\n");
+            }
+           case 7:
+            {
+                printf("7.Exit\n");
                 break;
             }
            default:
                 printf("\nInvalid choice! Please try again.\n");
            }
-       }while(choice != 6);
+       }while(choice != 7);
 
        //Login again
        do
