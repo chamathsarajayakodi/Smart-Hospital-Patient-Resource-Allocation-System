@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
 int main()
 {
     int id,choice,loginAgain;
@@ -20,7 +21,7 @@ int main()
     };
 
     //Specialty
-    char specialty [4][30]=
+    const char specialty [4][30]=
     {
         "General Practice (OPD)",
         "Paediatrics",
@@ -28,13 +29,58 @@ int main()
         "Neurology"
     };
 
+    //Consultation Fee
+    const float consultationFee[4] =
+    {
+        1500.00,
+        2500.00,
+        4500.00,
+        5000.00
+    };
+
+    //Consultation Time
+    const int consultationTime[4] =
+    {
+        15,
+        20,
+        30,
+        30
+    };
+
+    //Patient Lookup Capacity
+    const int dailyCapacity[4] =
+    {
+        30,
+        20,
+        12,
+        10
+    };
+
     //Ward Admission
-    char ward [4][30]=
+    const char ward [4][30]=
     {
         "General Ward",
         "Pediatric Ward",
         "Surgical Ward",
         "ICU (Intensive Care Unit)"
+    };
+
+    //Daily Bed Rate
+    const float dailyBedRate[4] =
+    {
+        3000.00,
+        6000.00,
+        12000.00,
+        25000.00
+    };
+
+    //Total Bed Capacity
+    const int totalBedCapacity[4] =
+    {
+        20,
+        10,
+        10,
+        5
     };
 
     //User login
@@ -57,10 +103,9 @@ int main()
            printf("1.New patient registration\n");
            printf("2.Doctor channeling\n");
            printf("3.Hospital wards and Bed allocation\n");
-           printf("4.Triage priority queue\n");
-           printf("5.Billing\n");
-           printf("6.Reports and Data management\n");
-           printf("7.Exit\n");
+           printf("4.Billing\n");
+           printf("5.Reports and Data management\n");
+           printf("6.Exit\n");
            printf("Enter your choice : ");
            scanf("%d", &choice);
 
@@ -81,21 +126,18 @@ int main()
                 printf("3.Hospital wards and Bed allocation\n");
                 break;
             }
+
            case 4:
-            {
-                printf("4.Triage priority queue\n");
-                break;
-            }
-           case 5:
             {
                 printf("5.Billing\n");
                 break;
             }
-           case 6:
+           case 5:
             {
                 printf("6.Reports and Data management\n");
+                break;
             }
-           case 7:
+           case 6:
             {
                 printf("7.Exit\n");
                 break;
@@ -103,7 +145,7 @@ int main()
            default:
                 printf("\nInvalid choice! Please try again.\n");
            }
-       }while(choice != 7);
+       }while(choice != 6);
 
        //Login again
        do
