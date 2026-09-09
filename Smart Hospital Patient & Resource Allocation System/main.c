@@ -125,11 +125,11 @@ int main()
                 //Patient Details
 
                 printf("Patient Name: ");
-                scanf(" %[^\n]", patientName);
+                scanf(" %[^\n]", patientName[patientCount]);
                 printf("Patient Age: ");
-                scanf("%d", &age);
+                scanf("%d", &age[patientCount]);
 
-                if(age <= 0 || age > 120)
+                if(age[patientCount] <= 0 || age[patientCount] > 120)
                 {
                     printf("Invalid age!\n");
                     break;
@@ -143,9 +143,9 @@ int main()
                     printf("%d. %s\n", i + 1, emergencyChoice[i]);
                 }
                 printf("Emergency level: ");
-                scanf("%d", &emergencyLevel);
+                scanf("%d", &emergencyLevel[patientCount]);
 
-                if(emergencyLevel < 1 || emergencyLevel > 3)
+                if(emergencyLevel[patientCount] < 1 || emergencyLevel[patientCount] > 3)
                 {
                     printf("Invalid choice!\n");
                     break;
@@ -160,16 +160,15 @@ int main()
                     printf("%d. %s\n", i + 1, specialty[i]);
                 }
                 printf("Specialty ID: ");
-                scanf("%d", &specialtyId);
+                scanf("%d", &specialtyId[patientCount]);
 
-                if(specialtyId < 1 || specialtyId > 4)
+                if(specialtyId[patientCount] < 1 || specialtyId[patientCount] > 4)
                 {
                     printf("Invalid choice!\n");
                     break;
                 }
 
                 //Ward Admission Details
-                int admissionChoice, daysAdmitted;
 
                 printf("Is Admitted to Ward?\n");
                 printf("1=Yes\n");
@@ -186,9 +185,9 @@ int main()
                         printf("%d. %s\n", i + 1, ward[i]);
                     }
                     printf("Ward ID: ");
-                    scanf("%d", &wardId);
+                    scanf("%d", &wardId[patientCount]);
 
-                    if(wardId < 1 || wardId > 4)
+                    if(wardId[patientCount] < 1 || wardId[patientCount] > 4)
                     {
                     printf("Invalid choice!\n");
                     break;
