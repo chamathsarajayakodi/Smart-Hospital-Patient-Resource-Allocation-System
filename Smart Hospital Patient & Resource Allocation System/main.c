@@ -4,16 +4,45 @@
 int main()
 {
     int id,choice,loginAgain;
-    char customerName[50];
+    char userName[50];
     char date[20];
     char time[20];
+    int emergencyLevel,specialtyId,wardId;
+    char patientName[100];
+    int age;
+
+    //Emergency level
+    char emergencyChoice [3][10]=
+    {
+        "Normal",
+        "Urgent",
+        "Critical"
+    };
+
+    //Specialty
+    char specialty [4][30]=
+    {
+        "General Practice (OPD)",
+        "Paediatrics",
+        "Cardiology",
+        "Neurology"
+    };
+
+    //Ward Admission
+    char ward [4][30]=
+    {
+        "General Ward",
+        "Pediatric Ward",
+        "Surgical Ward",
+        "ICU (Intensive Care Unit)"
+    };
 
     //User login
     do
     {
        printf("User login\n");
        printf("User name: ");
-       scanf(" %[^\n]", customerName);
+       scanf(" %[^\n]", userName);
        printf("Employee ID: ");
        scanf("%d", &id);
        printf("Date (DD/MM/YYYY): ");
@@ -26,11 +55,12 @@ int main()
        {
            printf("\nMain menu\n");
            printf("1.New patient registration\n");
-           printf("2.Doctor channelling\n");
-           printf("3.Hospital wards\n");
+           printf("2.Doctor channeling\n");
+           printf("3.Hospital wards and Bed allocation\n");
            printf("4.Triage priority queue\n");
            printf("5.Billing\n");
-           printf("6.Exit\n");
+           printf("6.Reports and Data management\n");
+           printf("7.Exit\n");
            printf("Enter your choice : ");
            scanf("%d", &choice);
 
@@ -43,12 +73,12 @@ int main()
             }
            case 2:
             {
-                printf("2.Doctor chanelling\n");
+                printf("2.Doctor channeling\n");
                 break;
             }
            case 3:
             {
-                printf("3.Hospital wards\n");
+                printf("3.Hospital wards and Bed allocation\n");
                 break;
             }
            case 4:
@@ -63,20 +93,33 @@ int main()
             }
            case 6:
             {
-                printf("6.Exit\n");
+                printf("6.Reports and Data management\n");
+            }
+           case 7:
+            {
+                printf("7.Exit\n");
                 break;
             }
            default:
                 printf("\nInvalid choice! Please try again.\n");
            }
-       }while(choice != 6);
+       }while(choice != 7);
 
        //Login again
-       printf("\nDo you want to login again?\n");
-       printf("1. Yes\n");
-       printf("2. No\n");
-       printf("Enter your choice: ");
-       scanf("%d", &loginAgain);
+       do
+       {
+            printf("\nDo you want to login again?\n");
+            printf("1. Yes\n");
+            printf("2. No\n");
+            printf("Enter your choice: ");
+            scanf("%d", &loginAgain);
+
+            if(loginAgain != 1 && loginAgain != 2)
+            {
+                printf("Invalid choice! Please enter 1 or 2.\n");
+            }
+
+       }while(loginAgain != 1 && loginAgain != 2);
 
     }while(loginAgain == 1);
 
