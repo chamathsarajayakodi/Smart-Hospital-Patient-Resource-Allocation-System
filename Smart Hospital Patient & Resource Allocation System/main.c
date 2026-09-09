@@ -9,13 +9,18 @@ int main()
     char userName[50];
     char date[20];
     char time[20];
+
     int emergencyLevel[MAX_PATIENTS],
         specialtyId[MAX_PATIENTS],wardId[MAX_PATIENTS];
     char patientName[MAX_PATIENTS][100];
     int age[MAX_PATIENTS];
+
+    int admissionChoice[MAX_PATIENTS];
+    int daysAdmitted[MAX_PATIENTS];
+
     int patientCount = 0;
 
-    int currentQueue;
+    int currentQueue[4] = {0, 0, 0, 0};
     int estimatedWaitingTime;
 
     //Emergency level
