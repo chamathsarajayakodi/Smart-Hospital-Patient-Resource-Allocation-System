@@ -55,13 +55,8 @@ int main()
        {
            printf("\nMain menu\n");
            printf("1.New patient registration\n");
-<<<<<<< HEAD
-           printf("2.Doctor channelling\n");
-           printf("3.Hospital wards\n");
-=======
            printf("2.Doctor channeling\n");
            printf("3.Hospital wards and Bed allocation\n");
->>>>>>> main
            printf("4.Triage priority queue\n");
            printf("5.Billing\n");
            printf("6.Reports and Data management\n");
