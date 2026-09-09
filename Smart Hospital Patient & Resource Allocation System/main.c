@@ -32,7 +32,7 @@ int main()
     char ward [4][30]=
     {
         "General Ward",
-        "Paediatric Ward",
+        "Pediatric Ward",
         "Surgical Ward",
         "ICU (Intensive Care Unit)"
     };
@@ -72,7 +72,7 @@ int main()
             }
            case 2:
             {
-                printf("2.Doctor chanelling\n");
+                printf("2.Doctor channeling\n");
                 break;
             }
            case 3:
