@@ -23,6 +23,12 @@ int main()
     int currentQueue[4] = {0, 0, 0, 0};
     int estimatedWaitingTime;
 
+    int bedNumber[MAX_PATIENTS] = {0};
+    char allocationDate[MAX_PATIENTS][20];
+    char cancellationDate[MAX_PATIENTS][20];
+    int bedOccupancy[4][20] = {0};
+
+
     //Emergency level
     char emergencyChoice [3][10]=
     {
@@ -135,6 +141,314 @@ int main()
            case 3:
             {
                 printf("3.Hospital wards and Bed allocation\n");
+
+                int case3Choice;
+
+                do
+                {
+                    printf("1.Bed matrix\n");
+                    printf("2.Bed allocation\n");
+                    printf("3.Back\n");
+                    printf("Enter your choice : ");
+                    scanf("%d", &case3Choice);
+
+                    switch(case3Choice)
+                    {
+                    case 1:
+                        {
+                            printf("\nBed Occupancy Matrix\n");
+                            printf("0 = Available   1 = Occupied   X = Not Available\n\n");
+
+                            printf("                  ");
+
+                            for(int j = 0; j < 20; j++)
+                            {
+                                printf("%2d ", j + 1);
+                            }
+
+                            printf("\n");
+
+                            for(int i = 0; i < 4; i++)
+                            {
+                                printf("%-16s ", ward[i]);
+
+                                for(int j = 0; j < 20; j++)
+                                {
+                                    if(j < totalBedCapacity[i])
+                                    {
+                                        printf("%2d ", bedOccupancy[i][j]);
+                                    }
+                                    else
+                                    {
+                                        printf(" X ");
+                                    }
+                                }
+
+                                printf("\n");
+                            }
+                            break;
+                        }
+                    case 2:
+                        {
+                            printf("2.Bed allocation\n");
+
+                            int case3wardId;
+                            for (int i = 0; i < 4; i++)
+                            {
+                                printf("%d. %s\n", i + 1, ward[i]);
+                            }
+                            printf("Ward ID: ");
+                            scanf("%d", &case3wardId);
+
+                            if(case3wardId < 1 || case3wardId > 4)
+                            {
+                                printf("Invalid choice!\n");
+                                break;
+                            }
+                            printf("Selected Ward: %s\n", ward[case3wardId - 1]);
+
+                            int case32Choice;
+                            do
+                            {
+                                printf("1.To be allocated\n");
+                                printf("2.Already allocated\n");
+                                printf("3.Cancel bed allocation\n");
+                                printf("4.Back\n");
+                                printf("Enter your choice : ");
+                                scanf("%d", &case32Choice);
+
+                                switch(case32Choice)
+                                {
+                                case 1:
+                                    {
+                                        printf("1.To be allocated\n");
+
+                                        int toBeAllocatedCount = 0;
+                                        int selectedPatient;
+
+                                        for(int i = 0; i < patientCount; i++)
+                                        {
+                                            if(admissionChoice[i] == 1 &&
+                                               wardId[i] == case3wardId &&
+                                               bedNumber[i] == 0)
+                                            {
+                                                toBeAllocatedCount++;
+
+                                                printf("%d. %s\n",
+                                                       toBeAllocatedCount,
+                                                       patientName[i]);
+                                            }
+                                        }
+
+                                        if(toBeAllocatedCount == 0)
+                                        {
+                                            printf("No patients to be allocated.\n");
+                                            break;
+                                        }
+
+                                        printf("Select patient: ");
+                                        scanf("%d", &selectedPatient);
+
+                                        if(selectedPatient < 1 ||
+                                           selectedPatient > toBeAllocatedCount)
+                                        {
+                                            printf("Invalid patient choice!\n");
+                                            break;
+                                        }
+
+                                        int patientIndex = -1;
+                                        int patientPosition = 0;
+
+                                        for(int i = 0; i < patientCount; i++)
+                                        {
+                                            if(admissionChoice[i] == 1 &&
+                                               wardId[i] == case3wardId &&
+                                               bedNumber[i] == 0)
+                                            {
+                                                patientPosition++;
+
+                                                if(patientPosition == selectedPatient)
+                                                {
+                                                    patientIndex = i;
+                                                    break;
+                                                }
+                                            }
+                                        }
+
+                                        printf("\nSelected Patient: %s\n",
+                                               patientName[patientIndex]);
+
+                                        printf("\nAvailable Beds:\n");
+
+                                        int availableBedCount = 0;
+
+                                        for(int i = 0; i < totalBedCapacity[case3wardId - 1]; i++)
+                                        {
+                                            if(bedOccupancy[case3wardId - 1][i] == 0)
+                                            {
+                                                availableBedCount++;
+
+                                                printf("Bed %d\n", i + 1);
+                                            }
+                                        }
+
+                                        if(availableBedCount == 0)
+                                        {
+                                            printf("No beds available in this ward.\n");
+                                            break;
+                                        }
+
+                                        int selectedBed;
+
+                                        printf("Enter bed number: ");
+                                        scanf("%d", &selectedBed);
+
+                                        if(selectedBed < 1 ||
+                                           selectedBed > totalBedCapacity[case3wardId - 1])
+                                        {
+                                            printf("Invalid bed number!\n");
+                                            break;
+                                        }
+
+                                        if(bedOccupancy[case3wardId - 1][selectedBed - 1] == 1)
+                                        {
+                                            printf("This bed is already occupied!\n");
+                                            break;
+                                        }
+
+                                        bedOccupancy[case3wardId - 1][selectedBed - 1] = 1;
+
+                                        bedNumber[patientIndex] = selectedBed;
+                                        printf("Allocation date (DD/MM/YYYY): ");
+                                        scanf("%s", allocationDate[patientIndex]);
+
+                                        printf("\nBed allocated successfully!\n");
+                                        break;
+                                    }
+                                case 2:
+                                    {
+                                        printf("2.Already allocated\n");
+
+                                        int alreadyAllocatedCount = 0;
+
+                                        for(int i = 0; i < patientCount; i++)
+                                        {
+                                            if(admissionChoice[i] == 1 &&
+                                               wardId[i] == case3wardId &&
+                                               bedNumber[i] != 0)
+                                            {
+                                                alreadyAllocatedCount++;
+
+                                                printf("%d. %s - Bed %d\n",
+                                                       alreadyAllocatedCount,
+                                                       patientName[i],
+                                                       bedNumber[i]);
+                                            }
+                                        }
+
+                                        if(alreadyAllocatedCount == 0)
+                                        {
+                                            printf("No patients are currently allocated to a bed.\n");
+                                        }
+
+                                        break;
+                                    }
+                                case 3:
+                                    {
+                                        printf("3.Cancel bed allocation\n");
+
+                                        int allocatedPatientCount = 0;
+
+                                        for(int i = 0; i < patientCount; i++)
+                                        {
+                                            if(admissionChoice[i] == 1 &&
+                                               wardId[i] == case3wardId &&
+                                               bedNumber[i] != 0)
+                                            {
+                                                allocatedPatientCount++;
+
+                                                printf("%d. %s - Bed %d\n",
+                                                       allocatedPatientCount,
+                                                       patientName[i],
+                                                       bedNumber[i]);
+                                            }
+                                        }
+
+                                        if(allocatedPatientCount == 0)
+                                        {
+                                            printf("No patients are currently allocated.\n");
+                                            break;
+                                        }
+
+                                        int selectedPatient;
+
+                                        printf("Select patient: ");
+                                        scanf("%d", &selectedPatient);
+
+                                        if(selectedPatient < 1 ||
+                                           selectedPatient > allocatedPatientCount)
+                                        {
+                                            printf("Invalid patient choice!\n");
+                                            break;
+                                        }
+
+                                        int patientIndex = -1;
+                                        int patientPosition = 0;
+
+                                        for(int i = 0; i < patientCount; i++)
+                                        {
+                                            if(admissionChoice[i] == 1 &&
+                                               wardId[i] == case3wardId &&
+                                               bedNumber[i] != 0)
+                                            {
+                                                patientPosition++;
+
+                                                if(patientPosition == selectedPatient)
+                                                {
+                                                    patientIndex = i;
+                                                    break;
+                                                }
+                                            }
+                                        }
+
+                                        printf("\nPatient: %s\n", patientName[patientIndex]);
+                                        printf("Bed Number: %d\n", bedNumber[patientIndex]);
+                                        printf("Allocation Date: %s\n", allocationDate[patientIndex]);
+
+                                        printf("Cancellation date (DD/MM/YYYY): ");
+                                        scanf("%s", cancellationDate[patientIndex]);
+
+                                        printf("\nBed allocation cancelled successfully!\n");
+
+                                        bedOccupancy[case3wardId - 1][bedNumber[patientIndex] - 1] = 0;
+
+                                        bedNumber[patientIndex] = 0;
+                                        break;
+                                    }
+                                case 4:
+                                    {
+                                        printf("4.Back\n");
+                                        break;
+                                    }
+                                default:
+                                    printf("\nInvalid choice! Please try again.\n");
+                                }
+
+                            }while(case32Choice != 4);
+
+                            break;
+                        }
+                    case 3:
+                        {
+                            printf("3.Back\n");
+                            break;
+                        }
+                    default:
+                        printf("\nInvalid choice! Please try again.\n");
+                    }
+
+                }while (case3Choice != 3);
+
                 break;
             }
 
