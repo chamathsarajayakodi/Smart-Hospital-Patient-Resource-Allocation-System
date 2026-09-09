@@ -127,6 +127,13 @@ int main()
             {
                 printf("1.New patient registration\n");
 
+                // Check patient storage capacity
+                if(patientCount >= MAX_PATIENTS)
+                {
+                    printf("Patient registration is full!\n");
+                    break;
+                }
+
                 //Patient Details
 
                 printf("Patient Name: ");
@@ -179,9 +186,9 @@ int main()
                 printf("1=Yes\n");
                 printf("0=No\n");
                 printf("Ward admission choice: ");
-                scanf("%d",&admissionChoice);
+                scanf("%d",&admissionChoice[patientCount]);
 
-                if(admissionChoice==1)
+                if(admissionChoice[patientCount]==1)
                 {
                     printf("Ward selection\n");
 
@@ -199,18 +206,18 @@ int main()
                     }
 
                     printf("Days Admitted: ");
-                    scanf("%d", &daysAdmitted);
+                    scanf("%d", &daysAdmitted[patientCount]);
 
-                    if(daysAdmitted <= 0)
+                    if(daysAdmitted[patientCount] <= 0)
                     {
                     printf("Invalid number of days!\n");
                     break;
                     }
                 }
-                else if(admissionChoice==0)
+                else if(admissionChoice[patientCount]==0)
                 {
-                    daysAdmitted = 0;
-                    printf("Days Admitted: %d\n",daysAdmitted);
+                    daysAdmitted[patientCount] = 0;
+                    printf("Days Admitted: %d\n",daysAdmitted[patientCount]);
                 }
                 else
                 {
@@ -218,6 +225,7 @@ int main()
                     break;
                 }
 
+                patientCount++;
                 break;
             }
            case 2:
