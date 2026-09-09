@@ -74,6 +74,55 @@ int main()
            case 2:
             {
                 printf("2.Doctor channeling\n");
+
+                for (int i = 0; i < 4; i++)
+                {
+                    printf("%d. %s\n", i + 1, specialty[i]);
+                }
+                printf("Specialty ID: ");
+                scanf("%d", &specialtyId);
+                {
+                    int case2Choice;
+                    do
+                    {
+                        printf("1.Current queue\n");
+                        printf("2.Consultation time\n");
+                        printf("3.Estimated waiting time\n");
+                        printf("4.Daily capacity\n");
+                        printf("5.Back\n");
+                        printf("Enter your choice : ");
+                        scanf("%d", &case2Choice);
+
+                        switch(case2Choice)
+                        {
+                        case 1:
+                            {
+                                printf("1.Current queue\n");
+                            }
+                        case 2:
+                            {
+                                printf("2.Consultation time\n");
+                            }
+                        case 3:
+                            {
+                                printf("3.Estimated waiting time\n");
+                            }
+                        case 4:
+                            {
+                                printf("4.Daily capacity\n");
+                            }
+                        case 5:
+                            {
+                                printf("5.Back\n");
+                            }
+                        default:
+                            printf("\nInvalid choice! Please try again.\n");
+
+                        }while(choice != 5);
+
+                    }
+                }
+
                 break;
             }
            case 3:
