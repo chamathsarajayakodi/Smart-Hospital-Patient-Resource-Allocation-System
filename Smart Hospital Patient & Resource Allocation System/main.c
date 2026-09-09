@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define MAX_PATIENTS 100
 
 int main()
 {
@@ -8,9 +9,14 @@ int main()
     char userName[50];
     char date[20];
     char time[20];
-    int emergencyLevel,specialtyId,wardId;
-    char patientName[100];
-    int age;
+    int emergencyLevel[MAX_PATIENTS],
+        specialtyId[MAX_PATIENTS],wardId[MAX_PATIENTS];
+    char patientName[MAX_PATIENTS][100];
+    int age[MAX_PATIENTS];
+    int patientCount = 0;
+
+    int currentQueue;
+    int estimatedWaitingTime;
 
     //Emergency level
     char emergencyChoice [3][10]=
@@ -223,17 +229,17 @@ int main()
 
            case 4:
             {
-                printf("5.Billing\n");
+                printf("4.Billing\n");
                 break;
             }
            case 5:
             {
-                printf("6.Reports and Data management\n");
+                printf("5.Reports and Data management\n");
                 break;
             }
            case 6:
             {
-                printf("7.Exit\n");
+                printf("6.Exit\n");
                 break;
             }
            default:
