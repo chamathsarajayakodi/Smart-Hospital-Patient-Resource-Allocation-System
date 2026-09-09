@@ -23,6 +23,11 @@ int main()
     int currentQueue[4] = {0, 0, 0, 0};
     int estimatedWaitingTime;
 
+    int bedNumber[MAX_PATIENTS] = {0};
+    char allocationDate[MAX_PATIENTS][20];
+    char cancellationDate[MAX_PATIENTS][20];
+    int bedOccupancy[4][20] = {0};
+
     //Emergency level
     char emergencyChoice [3][10]=
     {
