@@ -151,6 +151,249 @@ int main()
            case 5:
             {
                 printf("5.Reports and Data management\n");
+
+                int reportChoice;
+
+                while(1)
+                {
+                    printf("1. Patient Summary by Emergency Level\n");
+                    printf("2. Revenue & Discount Report\n");
+                    printf("3. Ward Bed Occupancy Report\n");
+                    printf("4. Highest-Paying Patient\n");
+                    printf("5. Back\n");
+
+                    printf("\nEnter your choice: ");
+                    scanf("%d", &reportChoice);
+
+                    switch(reportChoice)
+                    {
+                        case 1:
+                        {
+                            int normalCount = 0;
+                            int urgentCount = 0;
+                            int criticalCount = 0;
+
+                            for(int i = 0; i < patientCount; i++)
+                            {
+                                if(emergencyLevel[i] == 1)
+                                {
+                                    normalCount++;
+                                }
+                                else if(emergencyLevel[i] == 2)
+                                {
+                                    urgentCount++;
+                                }
+                                else
+                                {
+                                    criticalCount++;
+                                }
+                            }
+
+                            printf("\nPatient Summary by Emergency Level\n\n");
+
+                            printf("%s   : %d patients\n",
+                                   emergencyChoice[0],
+                                   normalCount);
+
+                            printf("%s   : %d patients\n",
+                                   emergencyChoice[1],
+                                   urgentCount);
+
+                            printf("%s : %d patients\n",
+                                   emergencyChoice[2],
+                                   criticalCount);
+
+                            break;
+                        }
+
+                        case 2:
+                        {
+                            float totalRevenue = 0;
+                            float totalDiscount = 0;
+
+                            for(int i = 0; i < patientCount; i++)
+                            {
+                                float baseFee;
+                                float emergencySurcharge;
+                                float wardCost = 0;
+                                float grossTotal;
+                                float discount;
+                                float finalPayable;
+
+                                baseFee = consultationFee[specialtyId[i] - 1];
+
+                                emergencySurcharge =
+                                    calculateEmergencySurcharge(
+                                        baseFee,
+                                        emergencyLevel[i]
+                                    );
+
+                                if(admissionChoice[i] == 1)
+                                {
+                                    wardCost =
+                                        calculateWardCost(
+                                            daysAdmitted[i],
+                                            dailyBedRate[wardId[i] - 1]
+                                        );
+                                }
+
+                                grossTotal =
+                                    calculateGrossTotal(
+                                        baseFee,
+                                        emergencySurcharge,
+                                        wardCost
+                                    );
+
+                                discount =
+                                    calculateAgeSubsidy(
+                                        grossTotal,
+                                        age[i]
+                                    );
+
+                                finalPayable =
+                                    calculateFinalPayable(
+                                        grossTotal,
+                                        discount
+                                    );
+
+                                totalRevenue += finalPayable;
+                                totalDiscount += discount;
+                            }
+
+                            printf("\nRevenue & Discount Report\n\n");
+
+                            printf("Total Revenue   : LKR %.2f\n",
+                                   totalRevenue);
+
+                            printf("Total Discounts : LKR %.2f\n",
+                                   totalDiscount);
+
+                            break;
+                        }
+
+                        case 3:
+                        {
+                            printf("\nWard Bed Occupancy Report\n\n");
+
+                            for(int i = 0; i < 4; i++)
+                            {
+                                int occupiedBeds = 0;
+                                int availableBeds;
+
+                                for(int j = 0; j < totalBedCapacity[i]; j++)
+                                {
+                                    if(bedOccupancy[i][j] == 1)
+                                    {
+                                        occupiedBeds++;
+                                    }
+                                }
+
+                                availableBeds =
+                                    totalBedCapacity[i] - occupiedBeds;
+
+                                printf("%s\n", ward[i]);
+                                printf("Total Beds     : %d\n",
+                                       totalBedCapacity[i]);
+
+                                printf("Occupied Beds  : %d\n",
+                                       occupiedBeds);
+
+                                printf("Available Beds : %d\n\n",
+                                       availableBeds);
+                            }
+
+                            break;
+                        }
+
+                        case 4:
+                        {
+                            int highestPatient = 0;
+                            float highestPayable = 0;
+
+                            for(int i = 0; i < patientCount; i++)
+                            {
+                                float baseFee;
+                                float emergencySurcharge;
+                                float wardCost = 0;
+                                float grossTotal;
+                                float discount;
+                                float finalPayable;
+
+                                baseFee =
+                                    consultationFee[specialtyId[i] - 1];
+
+                                emergencySurcharge =
+                                    calculateEmergencySurcharge(
+                                        baseFee,
+                                        emergencyLevel[i]
+                                    );
+
+                                if(admissionChoice[i] == 1)
+                                {
+                                    wardCost =
+                                        calculateWardCost(
+                                            daysAdmitted[i],
+                                            dailyBedRate[wardId[i] - 1]
+                                        );
+                                }
+
+                                grossTotal =
+                                    calculateGrossTotal(
+                                        baseFee,
+                                        emergencySurcharge,
+                                        wardCost
+                                    );
+
+                                discount =
+                                    calculateAgeSubsidy(
+                                        grossTotal,
+                                        age[i]
+                                    );
+
+                                finalPayable =
+                                    calculateFinalPayable(
+                                        grossTotal,
+                                        discount
+                                    );
+
+                                if(i == 0 || finalPayable > highestPayable)
+                                {
+                                    highestPayable = finalPayable;
+                                    highestPatient = i;
+                                }
+                            }
+
+                            printf("\nHighest-Paying Patient\n\n");
+
+                            printf("Patient Name  : %s\n",
+                                   patientName[highestPatient]);
+
+                            printf("Patient ID    : PAT-%04d\n",
+                                   1001 + highestPatient);
+
+                            printf("Final Payable : LKR %.2f\n",
+                                   highestPayable);
+
+                            break;
+                        }
+
+                        case 5:
+                        {
+                            break;
+                        }
+
+                        default:
+                        {
+                            printf("Invalid choice!\n");
+                        }
+                    }
+
+                    if(reportChoice == 5)
+                    {
+                        break;
+                    }
+                }
+
                 break;
             }
            case 6:
